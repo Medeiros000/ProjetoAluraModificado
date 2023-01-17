@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/svg" href="/img/dtitle.svg">
+    <title>Decodificador</title>
+</head>
+<body>
+  <div class="header">
+    <p class="decodificador" id="reset" title="Clique para limpar os campos">Decodificador</p>
+  </div>
+
+
+  <div class="main">
+
+    <div class="input">
+      <div class="textarea-input">
+        <textarea id="textoParaEnDec" class="txt-input" placeholder="Digite seu texto"></textarea>
+      </div>
+      <div class="btn-input">
+        <div class="enc-btn">
+          <button id="encode" class="encode"><img src="/img/lock.svg"><p class="descricao">Criptografar</p></button>
+        </div>
+        
+        <div class="dec-input">
+          <button id="decode" class="decode"><img src="/img/unlock.svg"><p class="descricao">Descriptografar</p></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="push">
+      <button id="mover" class="hidden"><img src="/img/arrow.svg"></button>
+    </div>
+
+    <div class="hidden" id="output">
+      <div class="output2">
+        
+        <div class="textarea-output">
+          <textarea id="resposta" class="txt-output" placeholder="Nenhuma mensagem encontrada" readonly></textarea>
+        </div>
+        <div class="btn-output">
+          <button id="copiar" class="copiar"><img src="/img/copiar.svg"></button>
+          <button id="wpp" class="whatsapp"><img src="/img/whatsapp.svg"></button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>  
+
+<nav class="footer">
+  <p class="criador">Dev - Jr. Medeiros</p>
+      <div class="social">
+        <a href="https://github.com/Medeiros000" target="_blank"><img class="himage" src="/img/github.svg" alt="github"></a>
+        <a href="https://www.linkedin.com/in/j%C3%BAnior-medeiros-a58072259/" target="_blank"><img class="himage" src="/img/linkedin.svg" alt="linkedin"></a>
+      </div>
+</nav>
+<script src="/js/codificador.js"></script>
+</body>
+</html>
