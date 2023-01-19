@@ -6,8 +6,7 @@ var moveValor = document.getElementById("mover");
 var compartilhar = document.getElementById("wpp");
 
 function capturaEcodifica(){
- 
-    var input = document.getElementById("textoParaEnDec").value;
+    var input = document.getElementById("txt-input").value;
     var teste = seMaiusculasOuAcentuadas(input);
     if(input == ""){
         msgDiv("Não há nada para criptografar");
@@ -21,7 +20,7 @@ function capturaEcodifica(){
     }
 }
 function capturaEdecodifica(){
-    var input = document.getElementById("textoParaEnDec").value;
+    var input = document.getElementById("txt-input").value;
     var teste = seMaiusculasOuAcentuadas(input);
     if(input == ""){
         msgDiv("Não há nada para descriptografar");
@@ -35,19 +34,18 @@ function capturaEdecodifica(){
     }
 }
 function escreve(frase){
-    document.getElementById('resposta').innerHTML = (frase);
+    document.getElementById('txt-output').innerHTML = (frase);
 }
 function copia(){
-    document.getElementById('resposta').select();
+    document.getElementById('txt-output').select();
     document.execCommand("copy");
     msgDiv("O texto foi copiado.");
 }
 function valor(){
-    document.getElementById("textoParaEnDec").value = document.getElementById("resposta").value;
+    document.getElementById("txt-input").value = document.getElementById("txt-output").value;
     esconderDiv("output");
     esconderDiv("mover");
 }
-
 function codificar(input) {
     const vogais = 'aeiou';
     const letras = input.split('');
@@ -100,36 +98,24 @@ function esconderDiv(divAlvo) {
     div.classList.remove("fade-in");
     div.classList.add("hidden");
 }
-
-
-/*textoEntrada = document.getElementById("textoParaEnDec");
-textoEntrada.addEventListener('input', autoResize, false);
-
-function autoResize() {
-    this.style.height = 'auto';
-    this.style.height = this.scrollHeight + 'px';
-}*/
-
 function reload(){
     location.reload();
-    document.getElementById("textoParaEnDec").value="";
-    document.getElementById("resposta").innerText="";
+    document.getElementById("txt-input").value="";
+    document.getElementById("txt-output").innerText="";
 }
-
 function wpp(){
-    window.open("https://wa.me/?text=" + document.getElementById("resposta").value);
+    window.open("https://wa.me/?text=" + document.getElementById("txt-output").value);
 }
-
 function msgDiv(msg) {
     var div = document.createElement("div");
     div.style.position = "fixed";
-    div.style.top = "100px";
+    div.style.top = "6.25rem";
     div.style.left = "50%";
     div.style.transform = "translateX(-50%)";
     div.style.backgroundColor = "var(--amarelo)";
     div.style.color = "var(--preto)";
-    div.style.padding = "20px";
-    div.style.borderRadius = "8px";
+    div.style.padding = "1.25rem";
+    div.style.borderRadius = "0.5rem";
     div.style.width = "80%";
     div.innerHTML = msg;
     div.setAttribute("id", "floating-div");
@@ -139,7 +125,6 @@ function msgDiv(msg) {
         element.parentNode.removeChild(element);
     }, 1000);
   }
-
 encodeButton.onclick = capturaEcodifica;
 decodeButton.onclick = capturaEdecodifica;
 copyButton.onclick = copia;
