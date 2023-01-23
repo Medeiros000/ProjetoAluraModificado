@@ -47,28 +47,22 @@ function valor(){
     esconderDiv("mover");
 }
 function codificar(input) {
-    const vogais = 'aeiou';
-    const letras = input.split('');
-    for (let i = 0; i < letras.length; i++) {
-        if (vogais.indexOf(letras[i]) !== -1) {
-            if(letras[i] == 'a'){
-                letras[i] = 'ai';
-            }
-            if(letras[i] == 'e'){
-                letras[i] = 'enter';
-            }
-            if(letras[i] == 'i'){
-                letras[i] = 'imes';
-            }
-            if(letras[i] == 'o'){
-                letras[i] = 'ober';
-            }
-            if(letras[i] == 'u'){
-                letras[i] = 'ufat';
-            }
+    const vogais = {
+        'a': 'ai',
+        'e': 'enter',
+        'i': 'imes',
+        'o': 'ober',
+        'u': 'ufat'
+    };
+    let output = "";
+    for (let letra of input) {
+        if (letra in vogais) {
+            output += vogais[letra];
+        } else {
+            output += letra;
         }
     }
-    return letras.join('');
+    return output;
 }
 function decodificar(palavra) {
     var mapping = {
@@ -78,11 +72,10 @@ function decodificar(palavra) {
         'ober': 'o',
         'ufat': 'u'
     };
-    return palavra.replace(/ai/g, mapping['ai'])
-                    .replace(/enter/g, mapping['enter'])
-                        .replace(/imes/g, mapping['imes'])
-                            .replace(/ober/g, mapping['ober'])
-                                .replace(/ufat/g, mapping['ufat']);
+    for (var key in mapping) {
+        palavra = palavra.replace(new RegExp(key, 'g'), mapping[key]);
+    }
+    return palavra;
 }
 function seMaiusculasOuAcentuadas(texto){
     const regex = /[A-ZÁÉÍÓÚÀÈÌÒÙÃÕÇáéíóúàèìòùãõç]/;
@@ -131,3 +124,31 @@ copyButton.onclick = copia;
 eraseButton.onclick = reload;
 moveValor.onclick = valor;
 compartilhar.onclick = wpp;
+
+/*    Remover acentos, Transformar letras maiúsculas em minúsculas e texto colado ser revisado nessa regras    */
+
+const input = document.getElementById("txt-input");
+input.addEventListener("input", function() {
+    input.value = removerAcentos(input.value.toLowerCase());
+});
+
+input.addEventListener("paste", function() {
+    setTimeout(function(){
+        input.value = removerAcentos(input.value.toLowerCase());
+    }, 0);
+});
+
+function removerAcentos(texto) {
+    var comAcentos = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŕ";
+    var semAcentos = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYRsBaaaaaaaceeeeiiiionoooooouuuuybyr";
+    var novoTexto = "";
+    for (var i = 0; i < texto.length; i++) {
+        var caracter = texto.charAt(i);
+        var index = comAcentos.indexOf(caracter);
+        if (index > -1) {
+            caracter = semAcentos.charAt(index);
+        }
+        novoTexto += caracter;
+    }
+    return novoTexto;
+}
