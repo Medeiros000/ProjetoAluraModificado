@@ -1,47 +1,47 @@
-var encodeButton = document.getElementById("encode");
-var decodeButton = document.getElementById("decode");
-var copyButton = document.getElementById("copiar");
-var eraseButton = document.getElementById("reset");
-var moveValor = document.getElementById("mover");
-var compartilhar = document.getElementById("wpp");
+let encodeButton = document.getElementById("encode");
+let decodeButton = document.getElementById("decode");
+let copyButton = document.getElementById("copiar");
+let eraseButton = document.getElementById("reset");
+let moveValor = document.getElementById("mover");
+let compartilhar = document.getElementById("wpp");
 
-function capturaEcodifica(){
-    var input = document.getElementById("txt-input").value;
-    var teste = seMaiusculasOuAcentuadas(input);
-    if(input == ""){
+function capturaEcodifica() {
+    let input = document.getElementById("txt-input").value;
+    let teste = seMaiusculasOuAcentuadas(input);
+    if (input == "") {
         msgDiv("Não há nada para criptografar");
-    }else if(teste==true){
+    } else if (teste === true) {
         msgDiv("Use apenas letras minuscúlas e sem acento.");
-    }else{
-        var codificado = codificar(input);
+    } else {
+        let codificado = codificar(input);
         escreve(codificado);
         mostrarDiv("output");
         mostrarDiv("mover");
     }
 }
-function capturaEdecodifica(){
-    var input = document.getElementById("txt-input").value;
-    var teste = seMaiusculasOuAcentuadas(input);
-    if(input == ""){
+function capturaEdecodifica() {
+    let input = document.getElementById("txt-input").value;
+    let teste = seMaiusculasOuAcentuadas(input);
+    if (input == "") {
         msgDiv("Não há nada para descriptografar");
-    }else if(teste==true){
+    } else if (teste === true) {
         msgDiv("Use apenas letras minuscúlas e sem acento.");
-    }else{
-        var decodificado = decodificar(input);
+    } else {
+        let decodificado = decodificar(input);
         escreve(decodificado);
         mostrarDiv("output");
         mostrarDiv("mover");
     }
 }
-function escreve(frase){
+function escreve(frase) {
     document.getElementById('txt-output').innerHTML = (frase);
 }
-function copia(){
+function copia() {
     document.getElementById('txt-output').select();
     document.execCommand("copy");
     msgDiv("O texto foi copiado.");
 }
-function valor(){
+function valor() {
     document.getElementById("txt-input").value = document.getElementById("txt-output").value;
     esconderDiv("output");
     esconderDiv("mover");
@@ -65,42 +65,42 @@ function codificar(input) {
     return output;
 }
 function decodificar(palavra) {
-    var mapping = {
+    let mapping = {
         'ai': 'a',
         'enter': 'e',
         'imes': 'i',
         'ober': 'o',
         'ufat': 'u'
     };
-    for (var key in mapping) {
+    for (let key in mapping) {
         palavra = palavra.replace(new RegExp(key, 'g'), mapping[key]);
     }
     return palavra;
 }
-function seMaiusculasOuAcentuadas(texto){
+function seMaiusculasOuAcentuadas(texto) {
     const regex = /[A-ZÁÉÍÓÚÀÈÌÒÙÃÕÇáéíóúàèìòùãõç]/;
     return regex.test(texto)
 }
 function mostrarDiv(divAlvo) {
-    var div = document.getElementById(divAlvo);
+    let div = document.getElementById(divAlvo);
     div.classList.remove("hidden");
     div.classList.add("fade-in");
 }
 function esconderDiv(divAlvo) {
-    var div = document.getElementById(divAlvo);
+    let div = document.getElementById(divAlvo);
     div.classList.remove("fade-in");
     div.classList.add("hidden");
 }
-function reload(){
+function reload() {
     location.reload();
-    document.getElementById("txt-input").value="";
-    document.getElementById("txt-output").innerText="";
+    document.getElementById("txt-input").value = "";
+    document.getElementById("txt-output").innerText = "";
 }
-function wpp(){
+function wpp() {
     window.open("https://wa.me/?text=" + document.getElementById("txt-output").value);
 }
 function msgDiv(msg) {
-    var div = document.createElement("div");
+    let div = document.createElement("div");
     div.style.position = "fixed";
     div.style.top = "6.25rem";
     div.style.left = "50%";
@@ -113,11 +113,11 @@ function msgDiv(msg) {
     div.innerHTML = msg;
     div.setAttribute("id", "floating-div");
     document.body.appendChild(div);
-    setTimeout(function(){
-        var element = document.getElementById("floating-div");
+    setTimeout( () => {
+        let element = document.getElementById("floating-div");
         element.parentNode.removeChild(element);
     }, 1000);
-  }
+}
 encodeButton.onclick = capturaEcodifica;
 decodeButton.onclick = capturaEdecodifica;
 copyButton.onclick = copia;
@@ -128,23 +128,23 @@ compartilhar.onclick = wpp;
 /*    Remover acentos, Transformar letras maiúsculas em minúsculas e texto colado ser revisado nessa regras    */
 
 const input = document.getElementById("txt-input");
-input.addEventListener("input", function() {
+input.addEventListener("input", () => {
     input.value = removerAcentos(input.value.toLowerCase());
 });
 
-input.addEventListener("paste", function() {
-    setTimeout(function(){
+input.addEventListener("paste", () => {
+    setTimeout( () => {
         input.value = removerAcentos(input.value.toLowerCase());
     }, 0);
 });
 
 function removerAcentos(texto) {
-    var comAcentos = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŕ";
-    var semAcentos = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYRsBaaaaaaaceeeeiiiionoooooouuuuybyr";
-    var novoTexto = "";
-    for (var i = 0; i < texto.length; i++) {
-        var caracter = texto.charAt(i);
-        var index = comAcentos.indexOf(caracter);
+    let comAcentos = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŕ";
+    let semAcentos = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYRsBaaaaaaaceeeeiiiionoooooouuuuybyr";
+    let novoTexto = "";
+    for (let i = 0; i < texto.length; i++) {
+        let caracter = texto.charAt(i);
+        let index = comAcentos.indexOf(caracter);
         if (index > -1) {
             caracter = semAcentos.charAt(index);
         }
